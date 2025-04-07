@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Desenhos com P5.js</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    #canvas-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .buttons {
+      margin-bottom: 10px;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #03A9F4;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0288D1;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+  <h1>Desenhos com P5.js</h1>
+
+  <div class="buttons">
+    <button onclick="mudarSketch(0)">Sketch 1</button>
+    <button onclick="mudarSketch(1)">Sketch 2</button>
+    <button onclick="mudarSketch(2)">Sketch 3</button>
+    <button onclick="mudarSketch(3)">Sketch 4</button>
+    <button onclick="mudarSketch(4)">Sketch 5</button>
+    <button onclick="mudarSketch(5)">Sketch 6</button>
+    <button onclick="mudarSketch(6)">Sketch 7</button>
+    <button onclick="mudarSketch(7)">Sketch 8</button>
+  </div>
+
+  <div id="canvas-container"></div>
+
+  <script>
+    let sketches = [];
+
+    // Sketch 1
+    sketches.push((p) => {
+      p.setup = () => p.createCanvas(400, 400);
+      p.draw = () => {
+        p.background(220);
+        p.circle(200, 200, 300);
+        p.circle(150, 150, 60);
+        p.circle(250, 150, 60);
+      };
+    });
+
+    // Sketch 2
+    sketches.push((p) => {
+      p.setup = () => p.createCanvas(400, 400);
+      p.draw = () => {
+        p.background(220);
+        p.circle(200, 200, 300);
+        p.circle(150, 150, 60);
+        p.circle(250, 150, 60);
+        p.line(150, 270, 250, 235);
+        p.triangle(200, 180, 170, 220, 220, 220);
+        if (p.mouseIsPressed) console.log(p.mouseX, p.mouseY);
+      };
+    });
+
+    // Sketch 3
+    sketches.push((p) => {
+      p.setup = () => p.createCanvas(400, 400);
+      p.draw = () => {
+        p.background("#FF5722");
+        p.fill("#03A9F4");
+        p.circle(200, 200, 300);
+        p.fill("white");
+        p.circle(150, 150, 60);
+        p.circle(250, 150, 60);
+        p.line(150, 270, 250, 235);
+        p.fill("#3F51B5");
+        p.triangle(200, 180, 170, 220, 220, 220);
+        p.line(123, 115, 178, 113);
+        p.line(225, 116, 279, 106);
+        p.circle(150, 150, 10);
+        p.circle(250, 150, 10);
+        if (p.mouseIsPressed) console.log(p.mouseX, p.mouseY);
+      };
+    });
+
+    // Sketch 4
+    sketches.push((p) => {
+      let olhoX, olhoY;
+      p.setup = () => p.createCanvas(400, 400);
+      p.draw = () => {
+        p.background("#FF5722");
+        p.fill("#03A9F4");
+        p.circle(200, 200, 300);
+        p.fill("white");
+        p.circle(150, 150, 60);
+        p.circle(250, 150, 60);
+        p.line(150, 270, 250, 235);
+        p.fill("#3F51B5");
+        p.triangle(200, 180, 170, 220, 220, 220);
+        p.line(123, 115, 178, 113);
+        p.line(225, 116, 279, 106);
+        olhoX = p.map(p.mouseX, 0, 400, 130, 170);
+        olhoY = p.map(p.mouseY, 0, 400, 130, 170);
+        p.circle(olhoX, olhoY, 10);
+        p.circle(olhoX + 100, olhoY, 10);
+        if (p.mouseIsPressed) console.log(p.mouseX, p.mouseY);
+      };
+    });
+
+    // Sketch 5 – mouseX igual a x
+    sketches.push((p) => {
+      let x, y;
+      p.setup = () => {
+        p.createCanvas(400, 400);
+        x = p.int(p.random(400));
+        y = p.int(p.random(400));
+      };
+      p.draw = () => {
+        p.background(220);
+        p.circle(x, y, 10);
+        p.fill(0);
+        p.textAlign(p.CENTER);
+        if (p.mouseX === x) {
+          p.text("Encontrei!", 200, 200);
+        }
+      };
+    });
+
+    // Sketch 6 – mouseX e mouseY igual a x e y
+    sketches.push((p) => {
+      let x, y;
+      p.setup = () => {
+        p.createCanvas(400, 400);
+        x = p.int(p.random(400));
+        y = p.int(p.random(400));
+      };
+      p.draw = () => {
+        p.background(220);
+        let distancia = p.dist(p.mouseX, p.mouseY, x, y);
+        p.circle(x, y, 10);
+        p.fill(0);
+        p.textAlign(p.CENTER);
+        if (p.mouseX === x && p.mouseY === y) {
+          p.text("Encontrei!", 200, 200);
+          p.noLoop();
+        }
+      };
+    });
+
+    // Sketch 7 – distância e círculo crescente
+    sketches.push((p) => {
+      let x, y;
+      p.setup = () => {
+        p.createCanvas(400, 400);
+        x = p.int(p.random(400));
+        y = p.int(p.random(400));
+      };
+      p.draw = () => {
+        p.background(220);
+        let distancia = p.dist(p.mouseX, p.mouseY, x, y);
+        p.circle(p.mouseX, p.mouseY, distancia);
+        p.fill(0);
+        p.textAlign(p.CENTER);
+        if (distancia < 3) {
+          p.text("Encontrei!", 200, 200);
+          p.noLoop();
+        }
+      };
+    });
+
+    // Sketch 8 – ponto se move aleatoriamente
+    sketches.push((p) => {
+      let x, y;
+      p.setup = () => {
+        p.createCanvas(400, 400);
+        x = p.int(p.random(400));
+        y = p.int(p.random(400));
+      };
+      p.draw = () => {
+        p.background(220);
+        x += p.random(-5, 5);
+        y += p.random(-5, 5);
+        x = p.constrain(x, 0, 400);
+        y = p.constrain(y, 0, 400);
+        let distancia = p.dist(p.mouseX, p.mouseY, x, y);
+        p.circle(p.mouseX, p.mouseY, distancia);
+        p.fill(0);
+        p.textAlign(p.CENTER);
+        if (distancia < 3) {
+          p.text("Encontrei!", 200, 200);
+          p.noLoop();
+        }
+      };
+    });
+
+    let currentSketch;
+    function mudarSketch(index) {
+      if (currentSketch) currentSketch.remove();
+      currentSketch = new p5(sketches[index], "canvas-container");
+    }
+
+    window.onload = () => mudarSketch(0);
+  </script>
+</body>
+</html>
